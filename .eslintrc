@@ -1,0 +1,45 @@
+{
+    "extends": "eslint:recommended",
+    "parser": "babel-eslint",
+    "env": {
+        "browser": true,
+        "node": true
+    },
+    "plugins": [
+        "react"
+    ],
+    "rules": {
+        "no-console": 0,
+        "new-cap": 0,
+        "strict": 0,
+        "no-underscore-dangle": 0,
+        "no-use-before-define": 0,
+        "eol-last": 0,
+        "quotes": [2, "single"],
+        "jsx-quotes": 1,
+        "react/jsx-no-undef": 1,
+        "react/jsx-uses-react": 1,
+        "react/jsx-uses-vars": 1,
+        "comma-dangle": [2, "always-multiline"],
+        "indent": ["error", 2]
+    },
+
+    "parserOptions": {
+        "ecmaFeatures": {
+            "experimentalObjectRestSpread": true
+        }
+    },
+    
+    "globals": {
+        "Promise": true,
+        "NODE_ENV": true,
+        "SERVER_HOST": true,
+
+        // Jest
+        "it": true,
+        "test": true,
+        "expect": true,
+        "describe": true,
+        "beforeEach": true
+    }
+}

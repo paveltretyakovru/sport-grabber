@@ -1,0 +1,70 @@
+{
+  "name": "webpack2-react-router-redux-materialui-boilerplate",
+  "version": "1.0.0",
+  "description": "Boilerplate for fast creating webpack2 react router redux materialui application",
+  "main": "webpack.config.js",
+  "scripts": {
+    "start": "NODE_ENV=development node node_modules/.bin/webpack-dev-server",
+    "test": "node node_modules/.bin/jest --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ptretyakov/webpack2-react-router-redux-materialui-boilerplate.git"
+  },
+  "author": "Tretyakov Pavel <1@tretyakovpavel.ru>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ptretyakov/webpack2-react-router-redux-materialui-boilerplate/issues"
+  },
+  "homepage": "https://github.com/ptretyakov/webpack2-react-router-redux-materialui-boilerplate#readme",
+  "jest": {
+    "verbose": true,
+    "moduleDirectories": [
+      "node_modules",
+      "src/frontend"
+    ]
+  },
+  "devDependencies": {
+    "autoprefixer": "^7.0.1",
+    "babel-cli": "^6.24.1",
+    "babel-core": "^6.24.1",
+    "babel-eslint": "^7.2.3",
+    "babel-jest": "^20.0.0",
+    "babel-loader": "^7.0.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "css-loader": "^0.28.1",
+    "enzyme": "^2.8.2",
+    "eslint": "^3.19.0",
+    "eslint-plugin-react": "^7.0.0",
+    "jest": "^20.0.0",
+    "plugin": "^0.3.3",
+    "postcss-load-config": "^1.2.0",
+    "postcss-loader": "^2.0.3",
+    "react-hot-loader": "^3.0.0-beta.7",
+    "react-test-renderer": "^15.5.4",
+    "redux-devtools": "^3.4.0",
+    "redux-devtools-dock-monitor": "^1.1.2",
+    "redux-devtools-log-monitor": "^1.3.0",
+    "redux-mock-store": "^1.2.3",
+    "redux-thunk": "^2.2.0",
+    "style-loader": "^0.17.0",
+    "webpack": "^2.5.1",
+    "webpack-dev-server": "^2.4.5"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.23.0",
+    "caniuse-api": "^1.6.1",
+    "inline-style-prefixer": "^3.0.3",
+    "jquery": "^3.2.1",
+    "material-ui": "^0.18.0",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-redux": "^5.0.4",
+    "react-router": "^3.0.5",
+    "react-router-redux": "^4.0.8",
+    "react-tap-event-plugin": "^2.0.1",
+    "redux": "^3.6.0"
+  }
+}
