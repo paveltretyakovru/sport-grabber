@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 
 import * as AppActions from 'app/app.actions';
 import * as HeaderActions from 'app/shared/header/header.actions';
+import { routeToEvents } from 'app/pages/events/events.actions';
 
 // Material-ui components
 import IconButton from 'material-ui/IconButton';
@@ -87,6 +88,7 @@ export class IndexContainer extends Component {
 
   handleTileClick(event) {
     console.log('Hello tile', event);
+    this.props.routeActions.routeToEvents();
   }
 
   handleFavoriteClick(event) {
@@ -107,6 +109,7 @@ function mapDispatchToProps(dispatch) {
   return {
     appActions: bindActionCreators(AppActions, dispatch),
     headerActions: bindActionCreators(HeaderActions, dispatch),
+    routeActions: bindActionCreators({routeToEvents}, dispatch),
   }
 }
 
