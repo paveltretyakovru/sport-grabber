@@ -1,20 +1,30 @@
 html, body { height: 100% }
-body { font-family: 'Roboto', sans-serif; overflow: hidden }
+body { font-family: 'Roboto', sans-serif;}
 
-main { display: flex; flex: 6 !important }
-header { max-height: 64px; min-height: 64px; }
 header, footer { flex: 1 !important }
+
+main {
+  display: flex;
+  flex: 6 !important;
+  margin: 0 !important;
+}
+header {
+  max-height: 64px;
+  min-height: 64px;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
 
 /* IDS */
 #root { height: 100% }
 #app-container {
-    height: 100%;
-    display: flex;
-    align-items: stretch;
-    flex-direction: column;
+  height: 100%;
+  display: flex;
+  align-items: stretch;
+  flex-direction: column;
 }
 #app-content {
-    flex: 3;
+  flex: 3;
 }
 
 .float-button {
