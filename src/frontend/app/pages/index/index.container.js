@@ -2,6 +2,10 @@ import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 
+// Constants
+import { INDEX_PAGE_TITLE } from './index.constants';
+
+// Actions
 import * as AppActions from 'app/app.actions';
 import * as HeaderActions from 'app/shared/header/header.actions';
 import { routeToEvents } from 'app/pages/events/events.actions';
@@ -15,21 +19,21 @@ const tilesData = [
   {
     id: 1,
     img: 'https://sportivnye-prognozy.ru/wp-content/uploads/2017/07/xmajer-kuznetsov-200x200.png.pagespeed.ic.xnTENWx3wn.webp',
-    title: 'Суареш-Наварро — Мертенс. 27.07.2017',
+    title: 'Суареш-Наварро - Мертенс. 27.07.2017',
     author: 'jill111',
     featured: true,
   },
   {
     id: 2,
     img: 'https://sportivnye-prognozy.ru/wp-content/uploads/2017/07/xsuaresh-navarro-mertens-200x200.png.pagespeed.ic.iPPcJyMMuy.webp',
-    title: 'Севастова — Куличкова. 26.07.2017',
+    title: 'Севастова - Куличкова. 26.07.2017',
     author: 'pashminu',
     featured: true,    
   },
   {
     id: 3,
     img: 'https://sportivnye-prognozy.ru/wp-content/uploads/2017/07/xbarcelona-200x200.png.pagespeed.ic.SihhFFHBnx.webp',
-    title: 'Майер — Кузнецов. 26.07.2017',
+    title: 'Майер - Кузнецов. 26.07.2017',
     author: 'Danson67',
   },
 ];
@@ -51,7 +55,7 @@ export class IndexContainer extends Component {
   componentWillMount() {
     if(this.props.setHeaderButtons !== undefined) {
       this.props.setHeaderButtons(null, null);
-      this.props.headerActions.updateHeaderTitle('Sport-grabber');
+      this.props.headerActions.updateHeaderTitle(INDEX_PAGE_TITLE);
     }
   }
 
