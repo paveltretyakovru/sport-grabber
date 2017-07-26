@@ -13,18 +13,21 @@ import {GridList, GridTile} from 'material-ui/GridList';
 
 const tilesData = [
   {
+    id: 1,
     img: 'https://sportivnye-prognozy.ru/wp-content/uploads/2017/07/xmajer-kuznetsov-200x200.png.pagespeed.ic.xnTENWx3wn.webp',
     title: 'Суареш-Наварро — Мертенс. 27.07.2017',
     author: 'jill111',
     featured: true,
   },
   {
+    id: 2,
     img: 'https://sportivnye-prognozy.ru/wp-content/uploads/2017/07/xsuaresh-navarro-mertens-200x200.png.pagespeed.ic.iPPcJyMMuy.webp',
     title: 'Севастова — Куличкова. 26.07.2017',
     author: 'pashminu',
     featured: true,    
   },
   {
+    id: 3,
     img: 'https://sportivnye-prognozy.ru/wp-content/uploads/2017/07/xbarcelona-200x200.png.pagespeed.ic.SihhFFHBnx.webp',
     title: 'Майер — Кузнецов. 26.07.2017',
     author: 'Danson67',
@@ -74,7 +77,7 @@ export class IndexContainer extends Component {
                 titlePosition="top"
                 
                 onTouchTap={(event) => {
-                  this.handleTileClick(event);
+                  this.handleTileClick(event, tile.id);
                 }}
               >
                 <img src={tile.img} style={styles.gridImage} />
@@ -86,9 +89,9 @@ export class IndexContainer extends Component {
     );
   }
 
-  handleTileClick(event) {
+  handleTileClick(event, id) {
     console.log('Hello tile', event);
-    this.props.routeActions.routeToEvents();
+    this.props.routeActions.routeToEvents(id);
   }
 
   handleFavoriteClick(event) {
