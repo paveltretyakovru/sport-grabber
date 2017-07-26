@@ -52,6 +52,12 @@ export class IndexContainer extends Component {
   }
 
   render() {
+    const favoriteButton = <IconButton
+      onTouchTap={::this.handleFavoriteClick}
+    >
+      <StarBorder color="white" />
+    </IconButton>;
+
     return (
       <div className="row center-md center-sm center-xs">
         <div className="col-md-4 col-sm-5 col-xs-12">
@@ -62,9 +68,13 @@ export class IndexContainer extends Component {
                 title={tile.title}
                 style={styles.gridTile}
                 titleStyle={styles.gridTileTitle}
-                actionIcon={<IconButton><StarBorder color="white" /></IconButton>}
+                actionIcon={favoriteButton}
                 actionPosition="left"
                 titlePosition="top"
+                
+                onTouchTap={(event) => {
+                  this.handleTileClick(event);
+                }}
               >
                 <img src={tile.img} style={styles.gridImage} />
               </GridTile>
@@ -73,6 +83,17 @@ export class IndexContainer extends Component {
         </div>
       </div>
     );
+  }
+
+  handleTileClick(event) {
+    console.log('Hello tile', event);
+  }
+
+  handleFavoriteClick(event) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    console.log('Favorite click', event);
   }
 }
 
