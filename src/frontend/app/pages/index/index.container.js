@@ -9,7 +9,7 @@ import { INDEX_PAGE_TITLE, noImageUrl } from './index.constants';
 import * as AppActions from 'app/app.actions';
 import * as HeaderActions from 'app/shared/header/header.actions';
 import * as indexActions from './index.actions';
-import { routeToEvents } from 'app/pages/events/events.actions';
+import { routeToEvents, fetchEventsPage } from 'app/pages/events/events.actions';
 
 // Material-ui components
 import IconButton from 'material-ui/IconButton';
@@ -43,7 +43,7 @@ export class IndexContainer extends Component {
   }
 
   componentDidMount() {
-    this.props.indexActions.fetchStartEvents();
+    this.props.fetchEventsPage();
   }
 
   render() {
@@ -57,11 +57,10 @@ export class IndexContainer extends Component {
       <div className="row center-md center-sm center-xs">
         <div className="col-md-4 col-sm-5 col-xs-12">
           <GridList cols={1} padding={16}>
-            {this.props.events.map((tile) => (
+            {this.props.events.collection.map((tile) => (
               <GridTile
                 key={tile.id}
                 title={tile.title.replaceAll('Прогноз на матч', '')}
-                style={styles.gridTile}
                 titleStyle={styles.gridTileTitle}
                 actionIcon={favoriteButton}
                 actionPosition="left"
@@ -95,7 +94,7 @@ export class IndexContainer extends Component {
 
 function mapStateToProps(state) {
   return {
-    events: state.index.events,
+    events: state.events,
     mainAuthor: state.mainAuthor,
   }
 }
@@ -104,8 +103,9 @@ function mapDispatchToProps(dispatch) {
   return {
     appActions: bindActionCreators(AppActions, dispatch),
     indexActions: bindActionCreators(indexActions, dispatch),
-    headerActions: bindActionCreators(HeaderActions, dispatch),
     routeActions: bindActionCreators({routeToEvents}, dispatch),
+    headerActions: bindActionCreators(HeaderActions, dispatch),
+    fetchEventsPage: bindActionCreators(fetchEventsPage, dispatch),
   }
 }
 
