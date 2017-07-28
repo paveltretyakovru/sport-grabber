@@ -2,7 +2,7 @@ export const UPDATE_MAIN_AUTHOR = 'UPDATE_MAIN_AUTHOR';
 export const INDEX_PAGE_TITLE = 'Sport Grabber';
 export const SET_START_EVENTS = 'SET_START_EVENTS';
 
-export const noImageUrl = 'https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg';
+export const noImageUrl = 'https://vignette3.wikia.nocookie.net/hunterxhunter/images/6/6d/No_image.png/revision/latest?cb=20120417110152';
 export const tilesData = [
   {
     id: 1,

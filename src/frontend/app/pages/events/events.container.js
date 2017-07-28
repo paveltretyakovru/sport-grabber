@@ -12,8 +12,7 @@ import ButtonBackComponent from 'app/shared/buttons/button-back.component';
 import * as HeaderActions from 'app/shared/header/header.actions';
 
 // Material-ui components
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
+import {Card, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 
 class EventsContainer extends Component {
   static path = EVENTS_ROUTE
@@ -21,6 +20,10 @@ class EventsContainer extends Component {
   componentWillMount() {
     this.props.setHeaderButtons(null, <ButtonBackComponent />);
     this.props.headerActions.updateHeaderTitle('React application. Contacts');
+  }
+
+  componentDidMount() {
+
   }
 
   render() {

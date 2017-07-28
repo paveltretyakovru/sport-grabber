@@ -2,6 +2,9 @@ import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 
+// CSS
+import './index.container.css';
+
 // Constants
 import { INDEX_PAGE_TITLE, noImageUrl } from './index.constants';
 
@@ -9,25 +12,16 @@ import { INDEX_PAGE_TITLE, noImageUrl } from './index.constants';
 import * as AppActions from 'app/app.actions';
 import * as HeaderActions from 'app/shared/header/header.actions';
 import * as indexActions from './index.actions';
-import { routeToEvents, fetchEventsPage } from 'app/pages/events/events.actions';
+import {
+  routeToEvents,
+  fetchEventsPage,
+  fetchEventPost,
+} from 'app/pages/events/events.actions';
 
 // Material-ui components
 import IconButton from 'material-ui/IconButton';
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 import {GridList, GridTile} from 'material-ui/GridList';
-
-const styles = {
-  gridTile: {
-    // marginTop: 16,
-    // marginBottom: 16,
-  },
-  gridTileTitle: {
-    fontSize: '13px',
-  },
-  gridImage: {
-    width: '100%',
-  },
-};
 
 String.prototype.replaceAll = function(search, replacement) {
   var target = this;
@@ -43,7 +37,7 @@ export class IndexContainer extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchEventsPage();
+    this.props.eventsActions.fetchEventsPage();
   }
 
   render() {
@@ -56,21 +50,21 @@ export class IndexContainer extends Component {
     return (
       <div className="row center-md center-sm center-xs">
         <div className="col-md-4 col-sm-5 col-xs-12">
-          <GridList cols={1} padding={16}>
-            {this.props.events.collection.map((tile) => (
+          <GridList cols={1} padding={16} className="grid-list">
+            {this.props.events.collection.map((event) => (
               <GridTile
-                key={tile.id}
-                title={tile.title.replaceAll('Прогноз на матч', '')}
-                titleStyle={styles.gridTileTitle}
+                key={event.id}
+                title={event.title.replaceAll('Прогноз на матч', '')}
+                titleStyle={{fontSize: '13px'}}
                 actionIcon={favoriteButton}
-                actionPosition="left"
                 titlePosition="top"
+                actionPosition="left"
                 
                 onTouchTap={(event) => {
-                  this.handleTileClick(event, tile.id);
+                  this.handleTileClick(event, event.id);
                 }}
               >
-                <img src={tile.img || noImageUrl} style={styles.gridImage} />
+                <img src={event.img || noImageUrl} className="grid-image" />
               </GridTile>
             ))}
           </GridList>
@@ -105,7 +99,9 @@ function mapDispatchToProps(dispatch) {
     indexActions: bindActionCreators(indexActions, dispatch),
     routeActions: bindActionCreators({routeToEvents}, dispatch),
     headerActions: bindActionCreators(HeaderActions, dispatch),
-    fetchEventsPage: bindActionCreators(fetchEventsPage, dispatch),
+    eventsActions: bindActionCreators(
+      {fetchEventPost, fetchEventsPage}, dispatch
+    ),
   }
 }
 

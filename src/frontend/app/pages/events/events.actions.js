@@ -5,6 +5,8 @@ import axios from 'axios';
 import {
   SET_EVENTS,
   EVENTS_ROUTE,
+  FETCH_EVENT_POST,
+  EVENTS_FETCH_URL,
 } from './events.constants';
 
 import { push } from 'react-router-redux';
@@ -19,10 +21,22 @@ export function routeToEvents(id = '') {
 
 export function fetchEventsPage() {
   return (dispatch) => {
-    axios.get('http://localhost:3000/events')
+    axios.get(EVENTS_FETCH_URL)
       .then((res) => {
         dispatch({
           type: SET_EVENTS,
+          payload: res.data,
+        });
+      });
+  }
+}
+
+export function fetchEventPost(id = 1) {
+  return (dispatch) => {
+    axios.get(`${EVENTS_FETCH_URL}/${id}`)
+      .then((res) => {
+        dispatch({
+          type: FETCH_EVENT_POST,
           payload: res.data,
         });
       });

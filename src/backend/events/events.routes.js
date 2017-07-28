@@ -80,9 +80,9 @@ router.get('/', (req, res) => {
 });
 
 // Fetch the same event post by id
-router.get('/:id', (req, res) => {
-  console.log(req.params.id);
-  res.json({id: req.params.id});
+router.get('/:url', (req, res) => {
+  console.log(req.params.url);
+  res.json({url: req.params.url});
 });
 
 // Fetching the same events posts page by id
