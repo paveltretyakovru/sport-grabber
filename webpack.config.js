@@ -16,7 +16,7 @@ module.exports = {
   },
 
   entry: [
-    'webpack-dev-server/client?http://localhost:8080',
+    'webpack-dev-server/client?http://localhost:8081',
     'webpack/hot/only-dev-server',
     'babel-polyfill',
     './frontend/index.js',
@@ -33,6 +33,13 @@ module.exports = {
     hot: true,
     contentBase: resolve(__dirname, 'dist'),
     publicPath: '/',
+    proxy: [
+      {
+        context: ['/events'],
+        target: 'http://localhost:3000',
+        secure: false,
+      },
+    ],
   },
 
   module: {

@@ -11,9 +11,8 @@ import headerReducer from './app/shared/header/header.reducer';
 export default combineReducers({
   // ...reducers,
   app: appReducer,
+  index: indexReducer,
   header: headerReducer,
   routing: routerReducer,
   contacts: contactsReducer,
-
-  ...indexReducer,
 })
