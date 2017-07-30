@@ -12,7 +12,7 @@ import {
 import { push } from 'react-router-redux';
 
 // Navigation functions
-export function routeToEvents(id = '') {
+export function routeToEvents(id = 0) {
   return (dispatch) => {
     let route = `${EVENTS_ROUTE}/${id}`;
     dispatch(push(route));
@@ -32,8 +32,9 @@ export function fetchEventsPage() {
 }
 
 export function fetchEventPost(id = 1) {
-  return (dispatch) => {
-    axios.get(`${EVENTS_FETCH_URL}/${id}`)
+  return (dispatch, getState) => {
+    console.log('GET STATE', getState());
+    axios.get(`${EVENTS_FETCH_URL}/url=${getState().events.collection[id].link}`)
       .then((res) => {
         dispatch({
           type: FETCH_EVENT_POST,

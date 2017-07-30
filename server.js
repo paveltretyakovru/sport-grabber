@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 
-app.use(cors({credentials: true, origin: 'http://localhost:8081'}));
+app.use(cors({credentials: true, origin: 'http://localhost:8080'}));
 
 // Require routes
 const eventsRoutes = require('./src/backend/events/events.routes');

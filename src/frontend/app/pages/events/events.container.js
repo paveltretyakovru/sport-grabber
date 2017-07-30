@@ -10,6 +10,7 @@ import ButtonBackComponent from 'app/shared/buttons/button-back.component';
 
 // Actions
 import * as HeaderActions from 'app/shared/header/header.actions';
+import * as eventsActions from './events.actions';
 
 // Material-ui components
 import {Card, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
@@ -23,7 +24,7 @@ class EventsContainer extends Component {
   }
 
   componentDidMount() {
-
+    this.props.eventsActions.fetchEventPost(this.props.params.id);
   }
 
   render() {
@@ -57,6 +58,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     headerActions: bindActionCreators(HeaderActions, dispatch),
+    eventsActions: bindActionCreators(eventsActions, dispatch),
   }
 }
 

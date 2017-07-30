@@ -53,7 +53,7 @@ const fetchEventsPage = (page = 1) => {
           let $postTitle = post.querySelector(titleSelector);
 
           postsData.push({
-            id: i + 1,
+            id: post.classList[1].split('-')[1],
             img: $postImage ? $postImage.src : '',
             link: $postTitle.href,
             desc: getElText(post.querySelector(descSelector)),

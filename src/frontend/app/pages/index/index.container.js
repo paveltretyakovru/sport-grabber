@@ -12,11 +12,7 @@ import { INDEX_PAGE_TITLE, noImageUrl } from './index.constants';
 import * as AppActions from 'app/app.actions';
 import * as HeaderActions from 'app/shared/header/header.actions';
 import * as indexActions from './index.actions';
-import {
-  routeToEvents,
-  fetchEventsPage,
-  fetchEventPost,
-} from 'app/pages/events/events.actions';
+import {routeToEvents, fetchEventsPage} from 'app/pages/events/events.actions';
 
 // Material-ui components
 import IconButton from 'material-ui/IconButton';
@@ -60,8 +56,9 @@ export class IndexContainer extends Component {
                 titlePosition="top"
                 actionPosition="left"
                 
-                onTouchTap={(event) => {
-                  this.handleTileClick(event, event.id);
+                onTouchTap={(e) => {
+                  console.log('touch', event);
+                  this.handleTileClick(e, event.id);
                 }}
               >
                 <img src={event.img || noImageUrl} className="grid-image" />
@@ -74,7 +71,6 @@ export class IndexContainer extends Component {
   }
 
   handleTileClick(event, id) {
-    console.log('Hello tile', event);
     this.props.routeActions.routeToEvents(id);
   }
 
@@ -99,9 +95,7 @@ function mapDispatchToProps(dispatch) {
     indexActions: bindActionCreators(indexActions, dispatch),
     routeActions: bindActionCreators({routeToEvents}, dispatch),
     headerActions: bindActionCreators(HeaderActions, dispatch),
-    eventsActions: bindActionCreators(
-      {fetchEventPost, fetchEventsPage}, dispatch
-    ),
+    eventsActions: bindActionCreators({fetchEventsPage}, dispatch),
   }
 }
 
