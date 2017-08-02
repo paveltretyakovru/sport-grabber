@@ -11,6 +11,7 @@ import LeftMenuComponent from './shared/left-menu.component';
 import ButtonMenuComponent from './shared/buttons/button-menu.component';
 
 import * as AppActions from './app.actions';
+import * as eventsActions from './pages/events/events.actions';
 import { routeToContacts } from './pages/contacts/contacts.actions';
 
 import './app.container.css';
@@ -29,6 +30,10 @@ class App extends Component {
 
   componentWillMount() {
     injectTapEventPlugin();
+  }
+
+  componentDidMount() {
+    this.props.eventsActions.fetchEventsPage();
   }
 
   render() {
@@ -101,6 +106,7 @@ function mapDisptachToProps(dispatch) {
   return {
     appActions: bindActionCreators(AppActions, dispatch),
     routeActions: bindActionCreators({routeToContacts}, dispatch),
+    eventsActions: bindActionCreators(eventsActions, dispatch),
   }
 }
 

@@ -20,10 +20,12 @@ class EventsContainer extends Component {
 
   componentWillMount() {
     this.props.setHeaderButtons(null, <ButtonBackComponent />);
-    this.props.headerActions.updateHeaderTitle('React application. Contacts');
+    this.props.headerActions.updateHeaderTitle('Событие');
+    this.props.eventsActions.clearCurrentPost();
   }
 
   componentDidMount() {
+    console.log('Fetching data');
     this.props.eventsActions.fetchEventPost(this.props.params.id);
   }
 
@@ -31,18 +33,14 @@ class EventsContainer extends Component {
     return(
       <Card>
         <CardHeader
-          title="Суареш-Наварро - Мертенс"
-          subtitle="27.07.2017"
+          title={this.props.current.title}
         />
         <CardMedia>
-          <img src="https://sportivnye-prognozy.ru/wp-content/uploads/2017/07/xmajer-kuznetsov-200x200.png.pagespeed.ic.xnTENWx3wn.webp" alt="" />
+          <img src={this.props.current.image} alt="" />
         </CardMedia>
-        <CardTitle title="Ставка - победа Боруссии Дортмунд" />
+        <CardTitle title={this.props.current.rate} />
         <CardText>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
-          Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
-          Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
+          {this.props.current.desc}
         </CardText>
       </Card>
     );
@@ -52,6 +50,8 @@ class EventsContainer extends Component {
 function mapStateToProps(state) {
   return {
     app: state.app,
+    events: state.events,
+    current: state.events.current,
   }
 }
 

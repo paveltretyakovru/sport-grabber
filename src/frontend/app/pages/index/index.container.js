@@ -12,12 +12,17 @@ import { INDEX_PAGE_TITLE, noImageUrl } from './index.constants';
 import * as AppActions from 'app/app.actions';
 import * as HeaderActions from 'app/shared/header/header.actions';
 import * as indexActions from './index.actions';
-import {routeToEvents, fetchEventsPage} from 'app/pages/events/events.actions';
+import {
+  routeToEvents,
+  fetchEventsPage,
+  fetchMorePage,
+} from 'app/pages/events/events.actions';
 
 // Material-ui components
 import IconButton from 'material-ui/IconButton';
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 import {GridList, GridTile} from 'material-ui/GridList';
+import FlatButton from 'material-ui/FlatButton';
 
 String.prototype.replaceAll = function(search, replacement) {
   var target = this;
@@ -32,10 +37,6 @@ export class IndexContainer extends Component {
     }
   }
 
-  componentDidMount() {
-    this.props.eventsActions.fetchEventsPage();
-  }
-
   render() {
     const favoriteButton = <IconButton
       onTouchTap={::this.handleFavoriteClick}
@@ -47,10 +48,14 @@ export class IndexContainer extends Component {
       <div className="row center-md center-sm center-xs">
         <div className="col-md-4 col-sm-5 col-xs-12">
           <GridList cols={1} padding={16} className="grid-list">
-            {this.props.events.collection.map((event) => (
+            {this.props.events.collection.map((event, index) => (
               <GridTile
-                key={event.id}
-                title={event.title.replaceAll('Прогноз на матч', '')}
+                key={event.id || index}
+                title={
+                  (event.title)
+                  ? event.title.replaceAll('Прогноз на матч', '')
+                  : ''
+                }
                 titleStyle={{fontSize: '13px'}}
                 actionIcon={favoriteButton}
                 titlePosition="top"
@@ -65,6 +70,11 @@ export class IndexContainer extends Component {
               </GridTile>
             ))}
           </GridList>
+          <FlatButton
+            label="Загрузить больше"
+            secondary={true}
+            onTouchTap={::this.handleMoreClick}
+          />
         </div>
       </div>
     );
@@ -79,6 +89,10 @@ export class IndexContainer extends Component {
     event.stopPropagation();
 
     console.log('Favorite click', event);
+  }
+
+  handleMoreClick() {
+    this.props.eventsActions.fetchMorePage(++this.props.events.loadedPage);
   }
 }
 
@@ -95,7 +109,7 @@ function mapDispatchToProps(dispatch) {
     indexActions: bindActionCreators(indexActions, dispatch),
     routeActions: bindActionCreators({routeToEvents}, dispatch),
     headerActions: bindActionCreators(HeaderActions, dispatch),
-    eventsActions: bindActionCreators({fetchEventsPage}, dispatch),
+    eventsActions: bindActionCreators({fetchEventsPage, fetchMorePage}, dispatch),
   }
 }
 

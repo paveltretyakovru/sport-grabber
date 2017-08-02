@@ -8,6 +8,7 @@ const request = require('request');
 const router = express.Router();
 
 // Constants url
+const eventUrl = 'https://sportivnye-prognozy.ru/vse-prognozy/?p=';
 const eventsUrl = 'https://sportivnye-prognozy.ru/vse-prognozy/page/';
 
 // Constants selectors
@@ -63,9 +64,41 @@ const fetchEventsPage = (page = 1) => {
 
         resolve(postsData);
       } else {
+        console.log('Error fetch page number');
         reject('Error');
       }
     })
+  });
+}
+
+const fetchPage = (id = 1) => {
+  return new Promise((resolve, reject) => {
+    request(`${eventUrl}${id}`, (error, response, body) => {
+      if (!error && response.statusCode == 200) {
+
+        // Prepearing dom object from fetched page text
+        let document = new JSDOM(body).window.document;
+        let postBody = document.querySelector('article');
+        
+        let title = getElText(document.querySelector('.gp-entry-title'));
+        
+        let image = postBody.querySelector('img');
+        let imageUrl = image.src || '';
+        
+        let postElement = document.querySelector('.gp-entry-text');
+        let rate = postElement.querySelector('p.gp-read-more');
+
+        resolve({
+          id: id,
+          rate: rate.textContent,
+          desc: postElement.textContent,
+          title: title,
+          image: imageUrl,
+        });
+      } else {
+        reject('Error');
+      }
+    });
   });
 }
 
@@ -80,19 +113,28 @@ router.get('/', (req, res) => {
 });
 
 // Fetch the same event post by id
-router.get('/:url', (req, res) => {
-  console.log(req.params.url);
-  res.json({url: req.params.url});
+router.get('/:id', (req, res) => {
+  console.log(req.params.id);
+  fetchPage(req.params.id || 1)
+    .then((page) => {
+      console.log('Query events/', req.params.id, page);
+      res.json(page);
+    });
 });
 
 // Fetching the same events posts page by id
 router.get('/page/:id', (req, res) => {
-  console.log('Pages number', req.params.id);
+  console.log('Pages number', req.params);
 
   fetchEventsPage(req.params.id || 1)
-    .then((posts) => {
-      res.json(posts);
-    });
+    .then(
+      (post) => {
+        res.json(post);
+      },
+      (error) => {
+        console.log('Error fetch /page/', req.params.id, error);
+      }
+    );
 });
 
 module.exports = router;
