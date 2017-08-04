@@ -36,7 +36,7 @@ class EventsContainer extends Component {
           title={this.props.current.title}
         />
         <CardMedia>
-          <img src={this.props.current.image} alt="" />
+          <img src={this.props.current.img} alt="" />
         </CardMedia>
         <CardTitle title={this.props.current.rate} />
         <CardText>

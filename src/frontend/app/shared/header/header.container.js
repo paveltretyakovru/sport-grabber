@@ -19,7 +19,7 @@ class HeaderContainer extends Component {
       <header className="row">
         <AppBar
           title={ headerTitle }
-          iconElementLeft={ this.props.buttonLeft }
+          showMenuIconButton={false}
           iconElementRight={ this.props.buttonRight }
           iconStyleRight={ iconStyleRight }
         />

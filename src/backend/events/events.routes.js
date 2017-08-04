@@ -50,16 +50,23 @@ const fetchEventsPage = (page = 1) => {
         const postsData = [];
         for(let i = 0; i < posts.length; i++) {
           let post = posts[i];
-          let $postImage = post.querySelector('img');
-          let $postTitle = post.querySelector(titleSelector);
 
-          postsData.push({
-            id: post.classList[1].split('-')[1],
-            img: $postImage ? $postImage.src : '',
-            link: $postTitle.href,
-            desc: getElText(post.querySelector(descSelector)),
-            title: $postTitle.title,
-          });
+          if (post.classList) {
+
+            // Exclude statistic post
+            if(!post.classList.contains('category-statistika-prognozov')) {
+              let $postImage = post.querySelector('img');
+              let $postTitle = post.querySelector(titleSelector);
+
+              postsData.push({
+                id: post.classList[1].split('-')[1],
+                img: $postImage ? $postImage.src : '',
+                link: $postTitle.href,
+                desc: getElText(post.querySelector(descSelector)),
+                title: $postTitle.title,
+              });
+            }
+          }
         }
 
         resolve(postsData);
@@ -93,7 +100,7 @@ const fetchPage = (id = 1) => {
           rate: rate.textContent,
           desc: postElement.textContent,
           title: title,
-          image: imageUrl,
+          img: imageUrl,
         });
       } else {
         reject('Error');

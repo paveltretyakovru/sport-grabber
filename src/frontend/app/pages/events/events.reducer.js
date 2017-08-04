@@ -28,7 +28,7 @@ export default function(state = initState, action) {
       return { ...state, collection: [action.payload], current: action.payload};
     } else {
       let newPosts = [...state.collection];
-      newPosts[postid] = action.payload.id;
+      newPosts[postid] = action.payload;
       
       return {...state, collection: newPosts, current: action.payload}
     }
