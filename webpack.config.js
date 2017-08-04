@@ -37,6 +37,7 @@ const PLUGINS = (NODE_ENV === 'development')
     new webpack.DefinePlugin({
       'NODE_ENV' : JSON.stringify(NODE_ENV),
       'SERVER_PORT' : JSON.stringify(SERVER_PORT),
+      'SERVER_HOST' : JSON.stringify(SERVER_HOST),
     }),
     new webpack.NamedModulesPlugin(),
     new webpack.LoaderOptionsPlugin({options: {postcss: [autoprefixer()]}}),
