@@ -1,6 +1,7 @@
 const { resolve } = require('path');
 const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 const NODE_ENV = process.env.NODE_ENV || 'development';
 const SERVER_PORT = process.env.SERVER_PORT || '3000';
@@ -21,6 +22,27 @@ const ENTRY = (NODE_ENV === 'development')
 const DEVTOOL = (NODE_ENV === 'development')
   ? 'inline-source-map'
   : 'nosources-source-map';
+
+const PLUGINS = (NODE_ENV === 'development')
+  ? [
+    new webpack.DefinePlugin({
+      'NODE_ENV' : JSON.stringify(NODE_ENV),
+      'SERVER_PORT' : JSON.stringify(SERVER_PORT),
+    }),
+    new webpack.NamedModulesPlugin(),
+    new webpack.LoaderOptionsPlugin({options: {postcss: [autoprefixer()]}}),
+    new webpack.HotModuleReplacementPlugin(),
+  ]
+  : [
+    new webpack.DefinePlugin({
+      'NODE_ENV' : JSON.stringify(NODE_ENV),
+      'SERVER_PORT' : JSON.stringify(SERVER_PORT),
+    }),
+    new webpack.NamedModulesPlugin(),
+    new webpack.LoaderOptionsPlugin({options: {postcss: [autoprefixer()]}}),
+    new webpack.HotModuleReplacementPlugin(),
+    new UglifyJSPlugin(),
+  ] 
 
 module.exports = {
   context: resolve(__dirname, 'src'),
@@ -65,28 +87,17 @@ module.exports = {
       {
         test: /\.css$/,
         use: [
-          {
-            loader: 'style-loader',
-          },
-          {
-            loader: 'css-loader',
-          },
+          { loader: 'style-loader' },
+          { loader: 'css-loader' },
           {
             loader: 'postcss-loader',
             options: { ident: 'postcss', plugins: () => [ require('plugin') ] },
           },
+
         ],
       },
     ],
   },
 
-  plugins: [
-    new webpack.DefinePlugin({
-      'NODE_ENV' : JSON.stringify(NODE_ENV),
-      'SERVER_PORT' : JSON.stringify(SERVER_PORT),
-    }),
-    new webpack.NamedModulesPlugin(),
-    new webpack.LoaderOptionsPlugin({options: {postcss: [autoprefixer()]}}),
-    new webpack.HotModuleReplacementPlugin(),
-  ],
+  plugins: PLUGINS,
 };
