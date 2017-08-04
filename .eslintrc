@@ -34,6 +34,7 @@
         "Promise": true,
         "NODE_ENV": true,
         "SERVER_HOST": true,
+        "SERVER_PORT": true,
 
         // Jest
         "it": true,
