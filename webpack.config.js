@@ -3,6 +3,24 @@ const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 
 const NODE_ENV = process.env.NODE_ENV || 'development';
+const SERVER_PORT = process.env.SERVER_PORT || '3000';
+const SERVER_HOST = process.env.SERVER_HOST || 'http://localhost';
+
+const ENTRY = (NODE_ENV === 'development')
+  ? [
+    'webpack-dev-server/client?http://localhost:8080',
+    'webpack/hot/only-dev-server',
+    'babel-polyfill',
+    './frontend/index.js',
+  ]
+  : [
+    'babel-polyfill',
+    './frontend/index.js',
+  ];
+
+const DEVTOOL = (NODE_ENV === 'development')
+  ? 'inline-source-map'
+  : 'nosources-source-map';
 
 module.exports = {
   context: resolve(__dirname, 'src'),
@@ -15,19 +33,14 @@ module.exports = {
     ],
   },
 
-  entry: [
-    'webpack-dev-server/client?http://localhost:8080',
-    'webpack/hot/only-dev-server',
-    'babel-polyfill',
-    './frontend/index.js',
-  ],
+  entry: ENTRY,
   output: {
     filename: 'bundle.js',
     path: resolve(__dirname, 'dist'),
     publicPath: '/',
   },
 
-  devtool: 'inline-source-map',
+  devtool: DEVTOOL,
 
   devServer: {
     hot: true,
@@ -36,7 +49,7 @@ module.exports = {
     proxy: [
       {
         context: ['/events'],
-        target: 'http://localhost:3000',
+        target: `${SERVER_HOST}:${SERVER_PORT}`,
         secure: false,
       },
     ],
@@ -68,7 +81,10 @@ module.exports = {
   },
 
   plugins: [
-    new webpack.DefinePlugin({ 'NODE_ENV' : JSON.stringify(NODE_ENV) }),
+    new webpack.DefinePlugin({
+      'NODE_ENV' : JSON.stringify(NODE_ENV),
+      'SERVER_PORT' : JSON.stringify(SERVER_PORT),
+    }),
     new webpack.NamedModulesPlugin(),
     new webpack.LoaderOptionsPlugin({options: {postcss: [autoprefixer()]}}),
     new webpack.HotModuleReplacementPlugin(),
